@@ -14,7 +14,8 @@ router.post('/', async (req, res, next) => {
 router.get('/', async (req, res, next) => {
     try {
         const { index, limit } = req.query;
-        res.send(await getPosts(index, limit));
+        const posts = await getPosts(+index, +limit);
+        res.send({ message: "Posts " + (index + 1) + " to " + (index + limit), posts });
     } catch (err) {
         next(err);
     }
@@ -22,7 +23,8 @@ router.get('/', async (req, res, next) => {
 
 router.get('/postsnumber', async (req, res, next) => {
     try {
-        res.send(await getPostsAmount());
+        const postsAmount = await getPostsAmount();
+        res.send({ message: "Amount of posts " + postsAmount});
     } catch (err) {
         next(err);
     }

@@ -22,7 +22,7 @@ router.get('/all', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
     try {
-        const user = await getUser();
+        const user = await getUser(req.query);
         res.send({ message: "User returned succefully", user })
     } catch (err) {
         next(err);

@@ -4,7 +4,8 @@ import { getTopcreators, getRuntime } from './statistics.controller.js';
 
 router.get('/topcreators', async (req, res, next) => {
     try {
-        res.send(await getTopcreators());
+        const topCreators = await getTopcreators();
+        res.send({ message: "The top 10 creators of posts by order are: " + topCreators });
     } catch (err) {
         next(err);
     }
@@ -13,7 +14,8 @@ router.get('/topcreators', async (req, res, next) => {
 
 router.get('/runtimes', async (req, res, next) => {
     try {
-        res.send(await getRuntime());
+        const { createTime, getPostsTime } = await getRuntime();
+        res.send({ message: "The time to create a post is: " + createTime + " , and the time to get a chunk of posts is: " + getPostsTime });
     } catch (err) {
         next(err);
     }

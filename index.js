@@ -1,10 +1,20 @@
-const express = require('express');
+import postsRouter from "./posts/post.router.js";
+import statsRouter from "./statistics/statistics.router.js";
+import userRouter from "./user/user.router.js";
+import { sequelize } from "./db/db.js";
+import express, { json, urlencoded } from 'express';
+
 const app = express();
 const port = process.env.PORT || 8080;
-const routes = require('./routes/post.routes.js');
 
-app.use(express.json());
-app.use('/api', routes);
+app.use(json());
+app.use(urlencoded());
+
+app.use('/posts', postsRouter);
+app.use('/statistics', statsRouter);
+app.use('/user', userRouter);
+
+await sequelize.sync({force: true});
 
 app.listen(port, () => {
     console.log(`Now listening on port ${port}`);

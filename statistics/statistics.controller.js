@@ -1,5 +1,5 @@
 import { performance } from "perf_hooks";
-import { createPost, getPosts } from "../posts/post.controller.js";
+import { createPost, getPosts, deletePost } from "../posts/post.controller.js";
 import statisticsStore from "./statistics.store.js";
 
 const getTopcreators = async () => {
@@ -14,11 +14,13 @@ const getTopcreators = async () => {
 const getRuntime = async () => {
     try {
         let createStartTime = performance.now();
-        createPost({ userId: 1, title: "test", description: "test" });
+        const post = createPost({ userId: 1, title: "testToDelete", description: "testToDelete" });
         let createEndTime = performance.now();
 
+        await deletePost({ postId: 0, isTest: true});
+
         let getPostsStartTime = performance.now();
-        getPosts(0, 2);
+        const posts = await getPosts(0, 2);
         let getPostsEndTime = performance.now();
 
         return { createtime: createEndTime - createStartTime, getPostsTime: getPostsEndTime - getPostsStartTime };

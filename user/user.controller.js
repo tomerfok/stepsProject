@@ -1,5 +1,5 @@
 import { User } from "../db/models/index.js";
-import userStore from "./user.store";
+import userStore from "./user.store.js";
 
 const createUser = async ({ username }) => {
     try {

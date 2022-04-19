@@ -1,11 +1,11 @@
 import { Post } from "../db/models/index.js";
 import postStore from "./post.store.js";
-import getUser from "../user/user.store.js";
+import userStore from "../user/user.store.js";
 
 const createPost = async ({ userId, title, description }) => {
     try {
-        if (getUser(userId)) {
-            return postStore.createUser({userId, title, description});
+        if (await userStore.getUser(userId)) {
+            return postStore.createUser({ userId, title, description });
         } else {
             throw new Error("User whom supposedly created the post, doesn't exist!");
         }
@@ -30,8 +30,17 @@ const getPostsAmount = async () => {
     }
 };
 
+const deletePost = async ({ postId }, isTest) => {
+    try {
+        return await postStore.deletePost(postId, isTest);
+    } catch (err) {
+        throw (err);
+    }
+};
+
 export {
     createPost,
     getPosts,
-    getPostsAmount
+    getPostsAmount,
+    deletePost
 };

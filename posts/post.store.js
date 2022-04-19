@@ -33,9 +33,29 @@ const findAmount = async () => {
         throw (err);
     }
 };
-
+const deletePost = async (postId, isTest) => {
+    try {
+        if (isTest) {
+            return Post.destroy({
+                where: {
+                    title: "testToDelete",
+                    description: "testToDelete"
+                }
+            });
+        } else {
+            return Post.destroy({
+                where: {
+                    postId
+                }
+            });
+        }
+    } catch (err) {
+        throw (err);
+    }
+};
 export default {
     createUser,
     findAmount,
-    getPosts
+    getPosts,
+    deletePost
 };

@@ -14,18 +14,21 @@ const getTopcreators = async () => {
 
 const getRuntime = async () => {
     try {
-        const user = await createUser({ username: "tester" });
+        let testUser = await createUser({ username: "tester" });
+
         let createStartTime = performance.now();
-        const post = await createPost({ userId: 1, title: "testToDelete", description: "testToDelete" }, true);
+        let testPost = await createPost({ userId: testUser.id, title: "testToDelete", description: "testToDelete" }, true);
         let createEndTime = performance.now();
+
         const createTime = (createEndTime - createStartTime);
 
-        await deletePost(0, true);
-        await deleteUser({ username: "tester" });
+        testPost = await deletePost({postId: testPost.postId});
+        testUser = await deleteUser({ username: testUser.username });
 
         let getPostsStartTime = performance.now();
         const posts = await getPosts(0, 2);
         let getPostsEndTime = performance.now();
+
         const getPostsTime = (getPostsEndTime - getPostsStartTime);
 
         return { createTime, getPostsTime };

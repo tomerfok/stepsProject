@@ -1,9 +1,8 @@
 import { Post, User } from "../db/models/index.js";
 
-const createUser = async ({ userId, title, description }) => {
+const createPost = async ({ userId, title, description }) => {
     try {
-        await Post.create({ userId, title, description });
-        return { userId, title, description };
+        return await Post.create({ userId, title, description });;
     } catch (err) {
         throw (err);
     }
@@ -33,28 +32,19 @@ const findAmount = async () => {
         throw (err);
     }
 };
-const deletePost = async (postId, isTest) => {
+const deletePost = async (postId) => {
     try {
-        if (isTest) {
-            return Post.destroy({
-                where: {
-                    title: "testToDelete",
-                    description: "testToDelete"
-                }
-            });
-        } else {
-            return Post.destroy({
-                where: {
-                    postId
-                }
-            });
-        }
+        return Post.destroy({
+            where: {
+                postId
+            }
+        });
     } catch (err) {
         throw (err);
     }
 };
 export default {
-    createUser,
+    createPost,
     findAmount,
     getPosts,
     deletePost

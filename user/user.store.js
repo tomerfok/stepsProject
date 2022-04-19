@@ -2,8 +2,7 @@ import { User } from "../db/models/index.js";
 
 const createUser = async ({ username }) => {
     try {
-        await User.create({ username });
-        return username;
+        return await User.create({ username });;
     } catch (err) {
         throw (err);
     }

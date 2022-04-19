@@ -11,7 +11,7 @@ router.post('/', async (req, res, next) => {
     }
 });
 
-router.get('/all', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
         const users = await getUsers();
         res.send({ message: "All of the Users returned succefully", users });
@@ -20,9 +20,9 @@ router.get('/all', async (req, res, next) => {
     }
 });
 
-router.get('/', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
     try {
-        const user = await getUser(req.query);
+        const user = await getUser(req.params);
         res.send({ message: user ? "User returned succefully" : "User wasn't found", user })
     } catch (err) {
         next(err);

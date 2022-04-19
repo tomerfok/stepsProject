@@ -3,8 +3,7 @@ import userStore from "./user.store.js";
 
 const createUser = async ({ username }) => {
     try {
-        await User.create({ username: username });
-        return username;
+        return await User.create({ username: username });
     } catch (err) {
         throw(err);
     }

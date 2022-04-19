@@ -2,8 +2,8 @@ import { Sequelize } from "sequelize";
 
 const sequelize = new Sequelize(
     "database",
-    process.env.USER,
-    process.env.PASSWORD,
+    '',
+    '',
     {
         host: "0.0.0.0",
         dialect: "sqlite",

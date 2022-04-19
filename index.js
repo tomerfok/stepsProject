@@ -14,7 +14,7 @@ app.use('/posts', postsRouter);
 app.use('/statistics', statsRouter);
 app.use('/user', userRouter);
 
-await sequelize.sync({force: true});
+await sequelize.sync();
 
 app.listen(port, () => {
     console.log(`Now listening on port ${port}`);

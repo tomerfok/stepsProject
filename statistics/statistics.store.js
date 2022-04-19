@@ -4,16 +4,16 @@ import { Post, User } from "../db/models/index.js";
 const getTopcreators = async () => {
     try {
         return Post.findAll({
-            attributes: ['User*', 'Post*', [sequelize.fn('count', 'post.id'), 'postCount']],
+            attributes: [[sequelize.fn('count', 'post.id'), 'postCount']],
             include: [
                 {
                     model: User,
-                    as: "user"
+                    as: "user"                    
                 }
             ],
             group: ['userId'],
-            order: [['postCount', 'DESC']],
-            limit: 10
+            limit: 10,
+            order: [[sequelize.literal('postCount'), 'DESC']]
         })
     } catch (err) {
         throw (err);

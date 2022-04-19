@@ -4,7 +4,7 @@ import { createPost, getPosts, getPostsAmount, deletePost } from './post.control
 
 router.post('/', async (req, res, next) => {
     try {
-        const post = await createPost(req.body);
+        const post = await createPost(req.body, false);
         res.send({ message: "Post created succefully", post });
     } catch (err) {
         next(err);

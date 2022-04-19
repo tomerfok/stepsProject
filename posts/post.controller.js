@@ -2,9 +2,11 @@ import { Post } from "../db/models/index.js";
 import postStore from "./post.store.js";
 import userStore from "../user/user.store.js";
 
-const createPost = async ({ userId, title, description }) => {
+const createPost = async ({ userId, title, description }, isTest) => {
     try {
-        if (await userStore.getUser(userId)) {
+        if (isTest) {
+            return postStore.createUser({ userId, title, description });
+        } else if (!isTest && await userStore.getUser(userId)) {
             return postStore.createUser({ userId, title, description });
         } else {
             throw new Error("User whom supposedly created the post, doesn't exist!");

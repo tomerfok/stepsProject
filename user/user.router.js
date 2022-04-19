@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const router = Router();
-import { createUser, getUsers, getUser } from './user.controller.js';
+import { createUser, getUsers, getUser, deleteUser } from './user.controller.js';
 
 router.post('/', async (req, res, next) => {
     try {
@@ -23,8 +23,16 @@ router.get('/all', async (req, res, next) => {
 router.get('/', async (req, res, next) => {
     try {
         const user = await getUser(req.query);
-        const message =  user ? "User returned succefully" : "User wasn't found";
-        res.send({ message, user })
+        res.send({ message: user ? "User returned succefully" : "User wasn't found", user })
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.delete('/', async (req, res, next) => {
+    try {
+        const user = await deleteUser(req.query);
+        res.send({ message: "User deleted succefully" })
     } catch (err) {
         next(err);
     }

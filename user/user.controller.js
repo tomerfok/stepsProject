@@ -26,8 +26,17 @@ const getUser = async ({ id }) => {
     }
 };
 
+const deleteUser = async ({ username }) => {
+    try {
+        return await userStore.deleteUser(username);
+    } catch (err) {
+        throw(err);
+    }
+};
+
 export {
     createUser,
     getUsers,
-    getUser
+    getUser,
+    deleteUser
 };

@@ -29,8 +29,21 @@ const getUser = async (id) => {
     }
 }
 
+const deleteUser = async (username) => {
+    try {
+        return User.destroy({
+            where: {
+                username
+            }
+        });
+    } catch (err) {
+        throw(err);
+    }
+};
+
 export default {
     createUser,
     getUsers,
-    getUser
+    getUser,
+    deleteUser
 };
